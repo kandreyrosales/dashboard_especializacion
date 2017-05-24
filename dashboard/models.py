@@ -25,7 +25,7 @@ class Cliente (models.Model):
     ciudad_nacimiento = models.ForeignKey(Ciudad)
     direccion = models.CharField(max_length=256)
     telefono = models.CharField(max_length=50)
-    estado = models.BooleanField()
+    activo = models.BooleanField(default=True)
 
     def __unicode__(self):
         return unicode(u'{0} {1} - {2}'.format(self.nombres, self.apellidos, self.identificacion))
