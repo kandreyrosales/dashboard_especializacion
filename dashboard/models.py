@@ -29,6 +29,7 @@ class Cliente (models.Model):
     ciudad_nacimiento = models.ForeignKey(Ciudad)
     direccion = models.CharField(max_length=256)
     telefono = models.CharField(max_length=50)
+    email = models.EmailField()
     activo = models.BooleanField(default=True)
 
     def __unicode__(self):
