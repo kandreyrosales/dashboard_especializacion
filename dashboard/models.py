@@ -23,7 +23,6 @@ class Cliente (models.Model):
     identificacion = models.BigIntegerField(primary_key=True)
     nombres = models.CharField(max_length=256)
     apellidos = models.CharField(max_length=256)
-    edad = models.IntegerField()
     sexo = models.CharField(max_length=1, choices=[('M', 'M'), ('F', 'F')])
     fecha_nacimiento = models.DateField()
     ciudad_nacimiento = models.ForeignKey(Ciudad)
