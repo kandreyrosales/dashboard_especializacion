@@ -15,8 +15,8 @@ class Ciudad (models.Model):
     pais = models.CharField(max_length=20, choices=PAISES)
     departamento = models.CharField(max_length=20, choices=DEPARTAMENTOS)
 
-    def __unicode__(self):
-        return unicode(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Cliente (models.Model):
@@ -32,16 +32,16 @@ class Cliente (models.Model):
     email = models.EmailField()
     activo = models.BooleanField(default=True)
 
-    def __unicode__(self):
-        return unicode(u'{0} {1} - {2}'.format(self.nombres, self.apellidos, self.identificacion))
+    def __str__(self):
+        return '{0} {1} - {2}'.format(self.nombres, self.apellidos, self.identificacion)
 
 
 class Categoria (models.Model):
     nombre = models.CharField(max_length=100, unique=True) # for example: HW, SW and SERV
     codigo = models.CharField(max_length=100, primary_key=True)
 
-    def __unicode__(self):
-        return unicode(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Producto (models.Model):
@@ -52,8 +52,8 @@ class Producto (models.Model):
     categoria = models.ForeignKey(Categoria)
     costo = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
 
-    def __unicode__(self):
-        return unicode(u'{0} {1} - {2}'.format(self.nombre, self.codigo, self.precio))
+    def __str__(self):
+        return '{0} {1} - {2}'.format(self.nombre, self.codigo, self.precio)
 
 
 class Vendedor (models.Model):
@@ -61,8 +61,8 @@ class Vendedor (models.Model):
     identificacion = models.BigIntegerField(primary_key=True)
     fecha_ingreso = models.DateField()
 
-    def __unicode__(self):
-        return unicode(u'{0}'.format(self.nombre_completo))
+    def __str__(self):
+        return '{0}'.format(self.nombre_completo)
 
 
 class Cotizacion (models.Model):
@@ -76,17 +76,18 @@ class Cotizacion (models.Model):
                                                              ('Credito', 'Credito'), ('Efectivo', 'Efectivo')])
     pagado = models.CharField(max_length=2, choices=[('Si','Si'), ('No', 'No')])
     descuento = models.DecimalField(max_digits=3, decimal_places=1)
+    productos = models.ManyToManyField(Producto)
 
-    def __unicode__(self):
-        return unicode(u'{0} {1} - {2}'.format(self.cliente.identificacion, self.medio_de_pago, self.pagado))
+    def __str__(self):
+        return '{0} {1} - {2}'.format(self.cliente.identificacion, self.medio_de_pago, self.pagado)
 
 
 class Area (models.Model):
     nombre = models.CharField(max_length=100, unique=True)
     cantidad_empleados = models.IntegerField()
 
-    def __unicode__(self):
-        return unicode(self.nombre)
+    def __str__(self):
+        return self.nombre
 
 
 class Presupuesto (models.Model):
@@ -95,6 +96,6 @@ class Presupuesto (models.Model):
     vigencia = models.IntegerField()  # vigencia en meses
     area = models.ForeignKey(Area)
 
-    def __unicode__(self):
-        return unicode(u'{0} - Presupuesta asignado:{1} - Vigencia:{2}'.format(self.area, self.cantidad_asignada, self.vigencia))
+    def __str__(self):
+        return '{0} - Presupuesta asignado:{1} - Vigencia:{2}'.format(self.area, self.cantidad_asignada, self.vigencia)
 
