@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h4>Lista de Votos válidos Banco de la República</h4>
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>Candidato</th>
+            <th># de votos</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if votantes_validos %}
+        {% for voto in votantes_validos %}
+        <tr class="default">
+            <td>{{ voto.candidato_seleccionado__nombre}}</td>
+            <td>{{ voto.id__count }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        There are not tickets created yet
+        {% endif %}
+        </tbody>
+    </table>
+    <h3>Votos totales: {{voto_list.count}}</h3>
+    <h3>Votos invalidos: {{votos_invalidos }}</h3>
+</div>
+
+{% endblock %}
